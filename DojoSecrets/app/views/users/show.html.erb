@@ -7,8 +7,10 @@
 	<input type="text" id="Content" name = "secret[content]">
 	<input type="submit" value = "Create Secret">
 </form>
+</br>
 
-<% @user.secrets.each do |secret| %>
+<h1>Secrets</h1>
+<% @secrets.each do |secret| %>
 	<h1><%= secret.content %></h1>
 	<h3><%= secret.likes.count %> likes</h3>	
 	<% if secret.user == current_user %>
