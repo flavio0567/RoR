@@ -4,14 +4,12 @@ class SessionsController < ApplicationController
     end
 
   def create
-    puts "entrei aqui"
     @user = User.find_by_email(params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       redirect_to "/users/#{@user.id}"
     else 
       flash[:errors] = ["Invalid Authentication"]
-   #  redirect_to "/sessions/new"
       redirect_to new_session_path
     end
   end
