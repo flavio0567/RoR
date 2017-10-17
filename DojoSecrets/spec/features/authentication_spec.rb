@@ -4,8 +4,8 @@ feature 'authentication' do
     @user = create(:user)
   end
 
-  feature "user sign-in" do
-    scenario 'visits sign-in page' do
+  feature "user login" do
+    scenario 'visits login page' do
       visit '/sessions/new'
       expect(page).to have_field('Email')
       expect(page).to have_field('Password')
@@ -15,15 +15,15 @@ feature 'authentication' do
       expect(current_path).to eq("/users/#{@user.id}")
       expect(page).to have_text(@user.name)
     end
-    scenario 'does not sign in user if email is not found' do
+    scenario 'does not login user if email is not found' do
       log_in email: 'wrong email'
       expect(current_path).to eq("/sessions/new")
       expect(page).to have_text('Invalid Combination')
     end    
-    scenario 'does not sign in user if email/password combination is invalid' do
+    scenario 'does not login user if authentication failed' do
       log_in password: 'wrong password'
       expect(current_path).to eq("/sessions/new")      
-      expect(page).to have_text('Invalid Combination')
+      expect(page).to have_text('Invalid Authentication')
     end
   end
   
